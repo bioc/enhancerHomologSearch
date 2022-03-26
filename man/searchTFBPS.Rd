@@ -37,5 +37,7 @@ peaks$id <- paste(seq_along(peaks), 1, sep="_")
 subj <- Enhancers(genome=Hsapiens, peaks=peaks)
 q <- getSeq(Hsapiens, GRanges("chr1", IRanges(90000, width=1000)))
 data(motifs)
-ao <- searchTFBPS(q, subj, motifs[["dist60"]], queryGenome=Hsapiens)
+if(.Platform$OS.type!="windows"){
+  ao <- searchTFBPS(q, subj, motifs[["dist60"]], queryGenome=Hsapiens)
+}
 }

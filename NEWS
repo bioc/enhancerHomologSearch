@@ -1,3 +1,7 @@
+# Change in 1.0.1
+
+  o Try to fix the error in windows build.
+
 # Change in 0.99.17
 
   o Try to get more error information from BioC build.
