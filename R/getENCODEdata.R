@@ -34,7 +34,7 @@ getENCODEdata <- function(genome,
                           output = c('Enhancer', 'raw_peaks'),
                           ...) {
   stopifnot('genome must be an object of BSgenome'=is(genome, "BSgenome"))
-  output <- match.args(output)
+  output <- match.arg(output)
   if(is(markers, "GRanges")){
     peaks <- markers
     if(output=='raw_peaks') return(peaks)
