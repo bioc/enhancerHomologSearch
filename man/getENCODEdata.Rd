@@ -9,6 +9,7 @@ getENCODEdata(
   markers = "H3K4me1",
   window_size = 1000L,
   step = 50L,
+  output = c("Enhancer", "raw_peaks"),
   ...
 )
 }
@@ -25,6 +26,9 @@ histone marker peaks are different sizes. Break the peaks into small
 pieces can increase the matching score and align the matching for
 different peaks into same size. The window_size is also be used for
 overlapping detection of multiple histone markers.}
+
+\item{output}{Output format. If it is 'raw_peaks', the raw peaks list will
+be returned. Otherwise, the Enhancer object will be returned.}
 
 \item{\dots}{Parameters can be passed to \link{queryEncode}}
 }

@@ -10,6 +10,8 @@
 #' pieces can increase the matching score and align the matching for
 #' different peaks into same size. The window_size is also be used for
 #' overlapping detection of multiple histone markers.
+#' @param output Output format. If it is 'raw_peaks', the raw peaks list will
+#' be returned. Otherwise, the Enhancer object will be returned.
 #' @param \dots Parameters can be passed to \link{queryEncode}
 #' @return An object of \link{Enhancers} with genome, and peaks.
 #' The peaks is an object of GRanges. The genome is an object of BSgenome.
@@ -29,10 +31,13 @@ getENCODEdata <- function(genome,
                           markers="H3K4me1",
                           window_size = 1000L,
                           step = 50L,
+                          output = c('Enhancer', 'raw_peaks'),
                           ...) {
   stopifnot('genome must be an object of BSgenome'=is(genome, "BSgenome"))
+  output <- match.args(output)
   if(is(markers, "GRanges")){
     peaks <- markers
+    if(output=='raw_peaks') return(peaks)
   }else{
     org <- organism(genome)
     assembly <- guessAssembly(genome)
@@ -83,6 +88,9 @@ getENCODEdata <- function(genome,
     peaks <- split(peaks,
                    vapply(res2, `[[`, FUN.VALUE = character(1), i="target"))
     peaks <- lapply(peaks, function(.ele) reduce(unlist(GRangesList(.ele))))
+    if(output=='raw_peaks'){
+      return(peaks)
+    }
     ## get intersection of the ranges
     subsetByOverlapsWindow <- function(a, b){
       subsetByOverlaps(a, b, maxgap = window_size)
